@@ -14,9 +14,11 @@ RUN useradd $user --uid $uid --gid $gid --home-dir /home/$user && \
 WORKDIR /home/containeruser
 RUN curl -O https://www.dyalog.com/uploads/php/download.dyalog.com/download.php?file=18.2/linux_64_18.2.45405_unicode.x86_64.deb
 RUN dpkg -i linux_64_18.2.45405_unicode.x86_64.deb
-USER containeruser
-ADD apl.sh /home/containeruser
-
 USER $user
+ADD apl.sh /home/containeruser
+USER root
+RUN chmod 555 /home/containeruser/apl.sh
+USER $user
+
 WORKDIR /mnt
 
