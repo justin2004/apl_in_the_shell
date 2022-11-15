@@ -53,6 +53,61 @@ justin@parens:/tmp$ ps -e -o user= | apl '≢∪' /dev/stdin
 13
 ```
 
+
+Generate a sequence of integers (one per line)
+
+```bash
+justin@parens:/tmp$ apl '⍪⍳10'
+ 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+justin@parens:/tmp$ seq 10
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+```
+
+Generate 10 odd numbers
+
+```bash
+justin@parens:/tmp$ for (( i = 1; i < 20; i=i+2 )); do echo $i ; done
+1
+3
+5
+7
+9
+11
+13
+15
+17
+19
+justin@parens:/tmp$ apl '⍪¯1+2×⍳10'
+ 1
+ 3
+ 5
+ 7
+ 9
+11
+13
+15
+17
+19
+```
+
 Histogram on process executable names and users running them
 
 ```bash
