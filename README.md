@@ -171,7 +171,7 @@ murmurer
 adopt
 ```
 
-Just some monadic examples
+Just some dyadic examples
 
 ```bash
 justin@parens:/tmp$ cat nums.txt
