@@ -28,6 +28,15 @@ In a bash shell run:
 alias apl='docker run --rm -i -v `pwd`:/mnt justin2004/apl_in_the_shell /home/containeruser/apl.sh'
 ```
 
+or put a file, called `apl`, with this content in one of the directories in your PATH:
+
+```bash
+#!/bin/bash
+docker run --rm -i -v `pwd`:/mnt justin2004/apl_in_the_shell /home/containeruser/apl.sh "$@"
+```
+and make it executable.
+
+
 Test to see if it is working:
 
 ```bash
