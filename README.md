@@ -186,7 +186,7 @@ justin@parens:~/Downloads$ ps -e -o comm,user | apl -r display "{5↑v⌷⍨⊂�
 ```
 
 
-Putting a csv file in an ASCII table:
+Putting a csv file in an ASCII table using [⎕CSV](http://help.dyalog.com/latest/Content/Language/System%20Functions/csv.htm):
 
 ```
 justin@parens:/tmp$ cat a.csv 
