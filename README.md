@@ -206,6 +206,23 @@ justin@parens:/tmp$ apl -r disp "⎕CSV 'a.csv'"
 └────┴────┴───┘
 ```
 
+Putting the /etc/passwd file in an ASCII table (inspired by [this](https://www.reddit.com/r/apljk/comments/yvmn9z/apl_in_the_shell_an_implementation/j24llo7/)):
+```
+justin@parens:/tmp$ head -2 /etc/passwd
+root:x:0:0:root:/root:/bin/bash
+daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin
+justin@parens:/tmp$ apl -r disp "{↑':'(≠⊆⊢)¨⍵}" /etc/passwd
+┌─────────────┬─┬─────┬─────┬──────────────────────────────────┬─────────────────┬─────────────────┐
+│root         │x│0    │0    │root                              │/root            │/bin/bash        │
+├─────────────┼─┼─────┼─────┼──────────────────────────────────┼─────────────────┼─────────────────┤
+│daemon       │x│1    │1    │daemon                            │/usr/sbin        │/usr/sbin/nologin│
+├─────────────┼─┼─────┼─────┼──────────────────────────────────┼─────────────────┼─────────────────┤
+│bin          │x│2    │2    │bin                               │/bin             │/usr/sbin/nologin│
+├─────────────┼─┼─────┼─────┼──────────────────────────────────┼─────────────────┼─────────────────┤
+...
+```
+
+
 
 
 
