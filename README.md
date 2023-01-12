@@ -150,7 +150,7 @@ You can also use two of Dyalog APL's General Utility Functions for rendering res
 and
 [display](https://dfns.dyalog.com/n_display.htm)
 
-To do this specify one of the rendering functions with `-r`:
+To do this specify one of the rendering functions with `-r` (r as in render):
 
 ```
 justin@parens:~/Downloads$ ps -e -o comm,user | apl -r disp "{5↑v⌷⍨⊂⍒v←{⍺,⍨≢⍵}⌸⍵}" -
@@ -183,6 +183,27 @@ justin@parens:~/Downloads$ ps -e -o comm,user | apl -r display "{5↑v⌷⍨⊂�
 │ 4  │sh              justin│ │
 │    └──────────────────────┘ │
 └∊────────────────────────────┘
+```
+
+
+Putting a csv file in an ASCII table:
+
+```
+justin@parens:/tmp$ cat a.csv 
+name,pet,age
+bob,fido,33
+fred,sam,10
+jane,sal,3
+justin@parens:/tmp$ apl -r disp "⎕CSV 'a.csv'"
+┌────┬────┬───┐
+│name│pet │age│
+├────┼────┼───┤
+│bob │fido│33 │
+├────┼────┼───┤
+│fred│sam │10 │
+├────┼────┼───┤
+│jane│sal │3  │
+└────┴────┴───┘
 ```
 
 
