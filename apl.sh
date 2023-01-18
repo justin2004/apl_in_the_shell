@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $1 = -r ] # r as in render
+if [ "$1" = "-r" ] # r as in render
 then
     script+="'display' 'disp'⎕CY'dfns' ⋄"
     render=$2
