@@ -1,7 +1,7 @@
 # apl_in_the_shell
 
 <!-- ![apl_in_the_shell](media/ais_4.jpg) -->
-<img src="media/ais_4.jpg" alt="APL in the Shell" width="100"/>
+<img src="media/ais_4.jpg" alt="APL in the Shell" width="512"/>
 
 ## what
 
