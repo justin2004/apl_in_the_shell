@@ -304,8 +304,6 @@ sal,3,3,jane
 Of course column ordering of csv is mostly meaningless but I've seen cases where it matters.
 
 
-```
-
 ---
 
 Putting the /etc/passwd file in an ASCII table (inspired by [this](https://www.reddit.com/r/apljk/comments/yvmn9z/apl_in_the_shell_an_implementation/j24llo7/)):
