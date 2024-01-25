@@ -4,6 +4,8 @@ RENDER=""
 CSVOUTPUT=""
 FINAL_OUTPUT="⎕←"
 INPUT="SET"
+# this allows trains to be rendered as ASCII trees
+PREAMBLE="(⎕NS⍬).(_←enableSALT⊣⎕CY'salt')\n]Box on -trains=tree\n"
 
 while :; do
     case $1 in
@@ -85,4 +87,4 @@ fi
 # echo $script
 # echo "-------"
 
-dyalogscript <(echo $script)
+dyalogscript <(echo -e $PREAMBLE ; echo $script)
