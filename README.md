@@ -272,7 +272,7 @@ If you don't specify `--output-csv` Dyalog APL's matrix rendering would be used.
 
 Add an `id` column to a csv file:
 
-``bash
+```bash
 justin@parens:/tmp$ apl -oc -ic "{⍵,⍨(⊂'id'),⍳¯1+≢⍵}" a.csv
 id,name,pet,age
 1,bob,fido,33
