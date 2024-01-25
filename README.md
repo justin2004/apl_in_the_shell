@@ -60,7 +60,7 @@ justin@parens:/tmp$ apl '⍳10'
 hello there
  1 2 3 4 5 6 7 8 9 10   hello there
 ```
-And why you type becomes the expression to the right of the APL expression.
+And what you type becomes the expression to the right of the APL expression.
 That is, the above is equivanent to this:
 
 ```bash
