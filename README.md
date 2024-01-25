@@ -52,6 +52,7 @@ should yield:
 ```
 
 Most often we want to read from stdin or a file so that is why we needed to specify `--no-input` above to indicate that we just want to evaluate an expression with no other input.
+
 If you don't specify `--no-input` or `-ni` the the process will wait for you to type something and press enter:
 
 ```bash
