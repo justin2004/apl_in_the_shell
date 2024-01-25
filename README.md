@@ -1,5 +1,8 @@
 # apl_in_the_shell
 
+<!-- ![apl_in_the_shell](media/ais_4.jpg) -->
+<img src="media/ais_4.jpg" alt="APL in the Shell" width="512"/>
+
 ## what
 
 [Dyalog APL](https://dyalog.com/) in a docker container with a wrapper script that allows you to quickly use APL expressions/functions in your shell (in pipelines, etc.)
