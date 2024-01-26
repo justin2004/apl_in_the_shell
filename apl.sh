@@ -78,6 +78,8 @@ else
             script+="$FINAL_OUTPUT $RENDER $CSVOUTPUT_EXPRESSION ($user_function) firstargument"
         else
             # we have input from stdin but it isn't csv AND INPUT was not specified (so don't look for a firstargument)
+            USE_PREAMBLE="SET"
+            # we only want to use the preamble if --no-input is specified
             script+="$FINAL_OUTPUT $RENDER $CSVOUTPUT_EXPRESSION ($user_function)"
         fi
     fi
@@ -87,4 +89,10 @@ fi
 # echo $script
 # echo "-------"
 
-dyalogscript <(echo -e $PREAMBLE ; echo $script)
+if [ ! -z $USE_PREAMBLE ]
+then
+    dyalogscript <(echo -e $PREAMBLE ; echo $script)
+else
+    dyalogscript <(echo $script)
+fi
+
