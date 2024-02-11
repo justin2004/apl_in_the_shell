@@ -23,6 +23,14 @@ while :; do
         ;;
         -ic|--input-csv) CSVINPUT="SET"            
         ;;
+        -ch|--use-csv-headers) USE_CSV_HEADERS="SET"            
+            # now try to get column names
+            csv_headers_script+="col_names_raw ← ,1↑firstargument ⋄"
+            csv_headers_script+="col_names← {⍵/⍨^\⍵∊(¯1∘⎕c⎕a),⎕a}¨ col_names_raw ⋄"
+            # TODO if not col_names ≡ col_names_raw then print a warning? 
+            csv_headers_script+="{⍎¨,/¯1⌽'←',1⌽({⍵},⍕∘⍪∘⍳∘≢)⍵} col_names ⋄"
+            csv_headers_script+="firstargument ← 1↓firstargument ⋄"
+        ;;
         *) break
     esac
     shift
@@ -48,6 +56,10 @@ then
     if [ ! -z $CSVINPUT ]
     then
         script+="firstargument←⎕CSV"\'$first\'" ⋄"
+        if [ ! -z $USE_CSV_HEADERS ]
+        then
+            script+=$csv_headers_script
+        fi
     else
         script+="firstargument←⊃⎕NGET"\'$first\'" 1 ⋄"
     fi
@@ -68,6 +80,10 @@ else
     then
         # we have csv input from stdin
         script+="firstargument←⎕CSV"\'$first\'" ⋄"
+        if [ ! -z $USE_CSV_HEADERS ]
+        then
+            script+=$csv_headers_script
+        fi
         script+="$FINAL_OUTPUT $RENDER $CSVOUTPUT_EXPRESSION ($user_function) firstargument"
     else
         # we have input from stdin but it isn't csv

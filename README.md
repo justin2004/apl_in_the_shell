@@ -304,6 +304,33 @@ sal,3,3,jane
 
 Of course column ordering of csv is mostly meaningless but I've seen cases where it matters.
 
+---
+
+If you want to use the column names in csv files use the `-ch` (or `--use-csv-headers`) option:
+
+```bash
+$ cat some.csv
+name,weight
+opal,62
+owen,65
+justin,195
+
+$ apl -ch -ic "{⍵[;name]}" some.csv
+┌────┬────┬──────┐
+│opal│owen│justin│
+└────┴────┴──────┘
+
+$ apl -ch -ic "{⍵[;weight]}" some.csv
+┌──┬──┬───┐
+│62│65│195│
+└──┴──┴───┘
+```
+
+Note that the column names that are available are just the leading alpha characters (upper and lower case).
+So if you have a column name "Name on business card" the column will be simply "Name".
+"Name4you" will be "Name".
+
+Also note when you use this option the header row is dropped.
 
 ---
 
