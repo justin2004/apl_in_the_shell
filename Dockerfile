@@ -1,6 +1,6 @@
 # vim: filetype=dockerfile
 # FROM debian:11
-FROM ubuntu:20.04
+FROM ubuntu:22.04
 USER root
 RUN apt-get update && apt-get install -y curl libtinfo5
 ARG uid=1000
