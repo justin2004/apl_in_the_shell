@@ -320,10 +320,17 @@ $ apl -ch -ic "{⍵[;name]}" some.csv
 │opal│owen│justin│
 └────┴────┴──────┘
 
-$ apl -ch -ic "{⍵[;weight]}" some.csv
-┌──┬──┬───┐
-│62│65│195│
-└──┴──┴───┘
+$ apl -ch -ic  "{⍵[;weight]}" some.csv
+62 65 19
+
+# sum of all the weights
+
+$ apl -ch -ic  "{+/⍵[;weight]}" some3.csv
+322
+
+# average of the weights
+$ cat some.csv | apl  -ch -ic  "{(+/÷≢)⍵[;weight]}"
+107.3333333
 ```
 
 Note that the column names that are available are just the leading alpha characters (upper and lower case).

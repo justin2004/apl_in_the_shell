@@ -55,7 +55,9 @@ then
     fi
     if [ ! -z $CSVINPUT ]
     then
-        script+="firstargument←⎕CSV"\'$first\'" ⋄"
+        script+="firstargument←⎕CSV"\'$first\'" 'UTF-8' (4) ⋄"
+        # the 4 above means: "The field is to be interpreted numeric data but invalid numeric data is tolerated. Empty fields and fields which cannot be converted to numeric values are returned instead as character data"
+        # there are other options however: https://help.dyalog.com/18.2/Content/Language/System%20Functions/csv.htm
         if [ ! -z $USE_CSV_HEADERS ]
         then
             script+=$csv_headers_script
@@ -79,7 +81,9 @@ else
     if [ ! -z $CSVINPUT ]
     then
         # we have csv input from stdin
-        script+="firstargument←⎕CSV"\'$first\'" ⋄"
+        script+="firstargument←⎕CSV"\'$first\'" 'UTF-8' (4) ⋄"
+        # the 4 above means: "The field is to be interpreted numeric data but invalid numeric data is tolerated. Empty fields and fields which cannot be converted to numeric values are returned instead as character data"
+        # there are other options however: https://help.dyalog.com/18.2/Content/Language/System%20Functions/csv.htm
         if [ ! -z $USE_CSV_HEADERS ]
         then
             script+=$csv_headers_script
