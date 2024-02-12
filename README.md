@@ -53,21 +53,7 @@ should yield:
 
 Most often we want to read from stdin or a file so that is why we needed to specify `--no-input` above to indicate that we just want to evaluate an expression with no other input.
 
-If you don't specify `--no-input` or `-ni` the the process will wait for you to type something and press enter:
-
-```bash
-$ apl '⍳10'
-hello there
- 1 2 3 4 5 6 7 8 9 10   hello there
-```
-And what you type becomes the expression to the right of the APL expression.
-That is, the above is equivanent to this:
-
-```bash
-$ apl -ni "(⍳10) 'hello there'"
- 1 2 3 4 5 6 7 8 9 10  hello there
-```
-
+If you don't specify `--no-input` or `-ni` then the process will wait for you to type something and press enter.
 
 ## examples
 
@@ -329,7 +315,7 @@ $ apl -ch -ic  "{⍵[;weight]}" some.csv
 62 65 195
 
 # sum of all the weights
-$ apl -ch -ic  "{+/⍵[;weight]}" some3.csv
+$ apl -ch -ic  "{+/⍵[;weight]}" some.csv
 322
 
 # average of the weights
