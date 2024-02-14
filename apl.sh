@@ -9,6 +9,8 @@ PREAMBLE="(⎕NS⍬).(_←enableSALT⊣⎕CY'salt')\n]Box on -trains=tree\n"
 
 while :; do
     case $1 in
+        -d|--debug) DEBUG="SET"
+        ;;
         -ni|--no-input) unset INPUT
         ;;
         -r|--render) 
@@ -105,9 +107,11 @@ else
     fi
 fi
 
-# echo script is
-# echo $script
-# echo "-------"
+if [ ! -z $DEBUG ]
+then
+    echo DEBUG: APL script is: >&2
+    echo DEBUG: $script >&2
+fi
 
 if [ ! -z $USE_PREAMBLE ]
 then
