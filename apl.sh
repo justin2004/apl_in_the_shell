@@ -7,8 +7,45 @@ INPUT="SET"
 # this allows trains to be rendered as ASCII trees
 PREAMBLE="(⎕NS⍬).(_←enableSALT⊣⎕CY'salt')\n]Box on -trains=tree\n"
 
+print_usage() {
+    echo "Usage: apl [OPTION] {FUNCTION} [input file ⍵]"
+    echo "       apl [OPTION] {FUNCTION} [input file ⍺] [input file ⍵]"
+    echo "       apl --no-input [OPTION] {EXPRESSION}"
+    echo ""
+    echo "  -d, --debug"
+    echo "    print the generated APL expression, to stderr, before it is evaluated"
+    echo ""
+    echo "  -ni, --no-input"
+    echo "    don't attempt to read from stdin"
+    echo "    NOTE: reading from stdin is assumed so you need this option if you just"
+    echo "    want to evaluate an expression with no other input"
+    echo ""
+    echo "  -r {function name}, --render {function name}"
+    echo "    use function (either 'disp' or 'display') to render the final result"
+    echo ""
+    echo "  -oc, --output-csv"
+    echo "    print the result of the evaluation as CSV"
+    echo ""
+    echo "  -ic, --input-csv"
+    echo "    treat input file ⍵ as a CSV and read it in using ⎕CSV"
+    echo "    then ⍵ to your function is the array produced by ⎕CSV"
+    echo ""
+    echo "  -ch, --use-csv-headers"
+    echo "    make the column names of the CSV file available as variables"
+    echo "    which evaluate to the position of the column and which can be"
+    echo "    used to index into the array (by column name)"
+    echo ""
+    echo "Examples:"
+    echo ""
+    echo "  see https://github.com/justin2004/apl_in_the_shell"
+    echo ""
+}
+
 while :; do
     case $1 in
+        -h|--help)
+            print_usage
+        ;;
         -d|--debug) DEBUG="SET"
         ;;
         -ni|--no-input) unset INPUT
@@ -44,8 +81,9 @@ second=$3
 
 if [ -z "$user_function" ]
 then
-    echo ERROR: TODO put a helpful usage message here
-    echo "for now look at the README for usage (https://github.com/justin2004/apl_in_the_shell)"
+    print_usage
+    # echo ERROR: TODO put a helpful usage message here
+    # echo "for now look at the README for usage (https://github.com/justin2004/apl_in_the_shell)"
     exit 1
 fi
 
