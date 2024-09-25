@@ -31,6 +31,11 @@ In a bash shell run:
 alias apl='docker run --rm -i -v `pwd`:/mnt justin2004/apl_in_the_shell /home/containeruser/apl.sh'
 ```
 
+On a Mac with ARM hardware (M1, M2, M3, etc.):
+```bash
+alias apl='docker run --platform linux/amd64 --rm -i -v `pwd`:/mnt justin2004/apl_in_the_shell /home/containeruser/apl.sh'
+```
+
 or put a file, called `apl`, with this content in one of the directories in your PATH:
 
 ```bash
@@ -445,6 +450,8 @@ I sometimes use [this](https://github.com/phantomics/april#enabling-apl-input-in
 For q there is [awq](https://github.com/adavies42/qist/blob/master/lib/awq.q).
 
 For j there is [this](https://topaz.github.io/paste/#XQAAgAD//////////wARiEJGPfQYaqZnr3qfcB//srbYI6pNxoin1UgFBxUFegNZnW0crudtmhW/2jpcTJPZYgurbkV0/cxNLTtf4Ia2i2Tl2MLlJ0drB2SIdCgWf2N3TjHzS4X7lGSgSECr5+Z3C5uyg3avmxw1Bj+NScdyFtEB3VsC/6Zs/MhK8N8o1Ud5ZgVoo/TpVuVCPO9edQbL2zKI0IEOuISzIWAh+WuSAVqNeuYiOsAhJf8cF2A507uHqM2xwdmgQWrI5Xe1go+5wpB96yBid/Vgz5icBskwt1xaSoeg74+qxE1ROrWXPgbNoJ2/HTk+prb9b48kJT4yEymWR8KNwUm643Dq/Xd4UUaaEcz1dtAeSDCfc6w1of3/5PI=).
+
+[jacinda](https://hackage.haskell.org/package/jacinda) "APL meets AWK"
 
 
 ## NOTES
