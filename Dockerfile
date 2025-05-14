@@ -12,7 +12,7 @@ RUN useradd $user --uid $uid --gid $gid --home-dir /home/$user && \
   chown $uid:$gid /home/$user
 
 WORKDIR /home/containeruser
-RUN curl -O https://www.dyalog.com/uploads/php/download.dyalog.com/download.php?file=18.2/linux_64_18.2.45405_unicode.x86_64.deb
+RUN curl -O https://www.dyalog.com/uploads/php/download.dyalog.com/download.php?file=19.0/linux_64_19.0.50027_unicode.x86_64.deb
 # RUN curl -O https://www.dyalog.com/uploads/php/download.dyalog.com/download.php?file=19.0/macarm_64_19.0.49414_unicode.pkg
 RUN dpkg -i linux_64_18.2.45405_unicode.x86_64.deb
 USER $user
