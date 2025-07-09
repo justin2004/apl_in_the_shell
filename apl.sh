@@ -4,8 +4,8 @@ RENDER=""
 CSVOUTPUT=""
 FINAL_OUTPUT="⎕←"
 INPUT="SET"
-# this allows trains to be rendered as ASCII trees
-PREAMBLE="(⎕NS⍬).(_←enableSALT⊣⎕CY'salt')\n]Box on -trains=tree\n"
+# this imports a function that can render function trains as ASCII trees
+PREAMBLE="'dft' ⎕cy 'dfns'"
 
 print_usage() {
     echo "Usage: apl [OPTION] {FUNCTION} [input file ⍵]"
@@ -151,10 +151,14 @@ then
     echo DEBUG: $script >&2
 fi
 
+# NOTE we are creating a shebang file to workaround the dyalogscript bug that requires 
+# the script to be a file
+echo '#!/usr/bin/dyalogscript DYALOG_INITSESSION=1 DYALOG_CEF=0' > /tmp/ais.apl
+
 if [ ! -z $USE_PREAMBLE ]
 then
-    dyalogscript <(echo -e $PREAMBLE ; echo $script)
-else
-    dyalogscript <(echo $script)
+    echo -e $PREAMBLE  >> /tmp/ais.apl
 fi
-
+echo $script  >> /tmp/ais.apl
+chmod 777 /tmp/ais.apl
+/tmp/ais.apl

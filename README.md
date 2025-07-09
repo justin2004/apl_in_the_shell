@@ -25,25 +25,15 @@ In a bash shell run:
 
 ## how (use)
 
-In a bash shell run: 
+Put this into your .bashrc or similar for zsh, etc.
 
 ```bash
-alias apl='docker run --rm -i -v `pwd`:/mnt justin2004/apl_in_the_shell /home/containeruser/apl.sh'
+apl() {
+    docker run --platform linux/amd64 --rm -it -v "$(pwd)":/mnt justin2004/apl_in_the_shell /home/containeruser/apl.sh "$@"
+}
 ```
 
-On a Mac with ARM hardware (M1, M2, M3, etc.):
-```bash
-alias apl='docker run --platform linux/amd64 --rm -i -v `pwd`:/mnt justin2004/apl_in_the_shell /home/containeruser/apl.sh'
-```
-
-or put a file, called `apl`, with this content in one of the directories in your PATH:
-
-```bash
-#!/bin/bash
-docker run --rm -i -v `pwd`:/mnt justin2004/apl_in_the_shell /home/containeruser/apl.sh "$@"
-```
-and make it executable.
-
+Now source that file in your current shell: `source ~/.bashrc`
 
 Test to see if it is working:
 
@@ -56,11 +46,27 @@ should yield:
 1 2 3 4 5
 ```
 
+
+
 Most often we want to read from stdin or a file so that is why we needed to specify `--no-input` above to indicate that we just want to evaluate an expression with no other input.
 
 If you don't specify `--no-input` or `-ni` then the process will wait for you to type something and press enter.
 
 ## examples
+
+Printing a function (train) tree:
+```bash
+apl -ni '(+/÷≢) dft 1'
+  ┌─┼─┐
+  / ÷ ≢
+┌─┘    
++  
+```
+
+This is useful to reference while constructing function trains as it indicates how they are parsed.
+
+(NOTE: in the current Dyalog 19.x we need to use this `dft` function but once user commands (specifically `]box`) are fixed the `dft` function won't be needed.)
+
 
 How many users are running processes?
 
