@@ -29,7 +29,15 @@ Put this into your .bashrc or similar for zsh, etc.
 
 ```bash
 apl() {
-    docker run --platform linux/amd64 --rm -it -v "$(pwd)":/mnt justin2004/apl_in_the_shell /home/containeruser/apl.sh "$@"
+  if [ -t 0 ]; then
+    # stdin is a terminal, OK to use -t
+    docker run --platform linux/amd64 --rm -it -v "$(pwd)":/mnt justin2004/apl_in_the_shell \
+        /home/containeruser/apl.sh "$@" | tr '\r' '\n'
+  else
+    # stdin is a pipe or file, don't use -t
+    docker run --platform linux/amd64 --rm -i -v "$(pwd)":/mnt justin2004/apl_in_the_shell \
+        /home/containeruser/apl.sh "$@" |tr '\r' '\n'
+  fi
 }
 ```
 
