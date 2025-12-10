@@ -62,7 +62,8 @@ If you don't specify `--no-input` or `-ni` then the process will wait for you to
 
 ## examples
 
-Printing a function (train) tree:
+### Printing a function (train) tree:
+
 ```bash
 apl -ni '(+/÷≢) dft 1'
   ┌─┼─┐
@@ -76,7 +77,7 @@ This is useful to reference while constructing function trains as it indicates h
 (NOTE: in the current Dyalog 19.x we need to use this `dft` function but once user commands (specifically `]box`) are fixed the `dft` function won't be needed.)
 
 
-How many users are running processes?
+### How many users are running processes?
 
 ```bash
 ps -e -o user= | sort -u | wc -l
@@ -96,7 +97,7 @@ Notice that reading from stdin is assumed so you don't have to specify it.
 
 ---
 
-Generate a sequence of integers (one per line)
+### Generate a sequence of integers (one per line)
 
 ```bash
 apl -ni '⍪⍳10'
@@ -126,7 +127,7 @@ seq 10
 
 ---
 
-Generate 10 odd numbers
+### Generate 10 odd numbers
 
 ```bash
 for (( i = 1; i < 20; i=i+2 )); do echo $i ; done
@@ -156,7 +157,7 @@ apl -ni '⍪¯1+2×⍳10'
 
 ---
 
-Histogram on process executable names and users running them
+### Histogram on process executable names and users running them
 
 ```bash
 ps -e -o comm,user | sort | uniq -c | sort -nr  | head
@@ -189,7 +190,7 @@ You can also use two of Dyalog APL's General Utility Functions for rendering res
 and
 [display](https://dfns.dyalog.com/n_display.htm)
 
-To do this specify one of the rendering functions with `-r` (r as in render):
+### To do this specify one of the rendering functions with `-r` (r as in render):
 
 ```bash
 ps -e -o comm,user | apl -r disp "{5↑v⌷⍨⊂⍒v←{⍺,⍨≢⍵}⌸⍵}"
@@ -226,6 +227,8 @@ ps -e -o comm,user | apl -r display "{5↑v⌷⍨⊂⍒v←{⍺,⍨≢⍵}⌸⍵
 ```
 
 
+### CSV
+
 Putting a csv file in an ASCII table using [⎕CSV](http://help.dyalog.com/latest/Content/Language/System%20Functions/csv.htm):
 
 ```bash
@@ -258,7 +261,7 @@ Note we specify `--no-input` (`-ni`) there because the csv file name is specifie
 
 ---
 
-Transpose a csv file:
+### Transpose a csv file:
 
 ```bash
 cat a.csv | apl --output-csv -ic '⍉'
@@ -281,7 +284,7 @@ If you don't specify `--output-csv` Dyalog APL's matrix rendering would be used.
 
 ---
 
-Add an `id` column to a csv file:
+### Add an `id` column to a csv file:
 
 ```bash
 apl -oc -ic "{⍵,⍨(⊂'id'),⍳¯1+≢⍵}" a.csv
@@ -315,6 +318,8 @@ sal,3,3,jane
 Of course column ordering of csv is mostly meaningless but I've seen cases where it matters.
 
 ---
+
+### Named indexes
 
 If you want to use the column names in csv files use the `-ch` (or `--use-csv-headers`) option:
 
@@ -369,7 +374,7 @@ apl -r disp "{↑':'(≠⊆⊢)¨⍵}" /etc/passwd
 
 ---
 
-Get 10 random words from the dictionary file
+### Get 10 random words from the dictionary file
 
 ```bash
 head -400 /usr/share/hunspell/en_US.dic | tail -5
