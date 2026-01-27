@@ -21,7 +21,7 @@ print_usage() {
     echo "    want to evaluate an expression with no other input"
     echo ""
     echo "  -r {function name}, --render {function name}"
-    echo "    use function (either 'disp' or 'display') to render the final result"
+    echo "    use function (either 'disp','display','displays', or 'displayr') to render the final result"
     echo ""
     echo "  -oc, --output-csv"
     echo "    print the result of the evaluation as CSV"
@@ -52,7 +52,7 @@ while :; do
         ;;
         -r|--render) 
             RENDER="$2"            
-            script+="'display' 'disp'⎕CY'dfns' ⋄"
+            script+="'displayr' 'displays' 'display' 'disp'⎕CY'dfns' ⋄"
             shift
         ;;
         -oc|--output-csv) CSVOUTPUT="SET"            
