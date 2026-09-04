@@ -453,6 +453,23 @@ echo -e 'one\ntwo\nthree\nfour' | apl -r disp "{(⍎¨⍺)∘.⍴⍵}" nums.txt 
 └────┴────┴────┴────┘
 ```
 
+### Output using APL Array Notation
+
+```bash
+apl -an -ni "⍪(1 2 3) 'hello'"
+[
+ (
+  1 2 3
+ )
+ (
+  'hello'
+ )
+]
+```
+
+This is [new](https://docs.dyalog.com/20.0/programming-reference-guide/introduction/arrays/array-notation/) in Dyalog APL 20.0.
+
+
 ## entering APL glyphs
 
 I use [this](https://aplwiki.com/wiki/Typing_glyphs_on_Linux#setxkbmap) approach on Linux.

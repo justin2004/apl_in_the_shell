@@ -39,6 +39,12 @@ print_usage() {
     echo "    which evaluate to the position of the column and which can be"
     echo "    used to index into the array (by column name)"
     echo ""
+    echo ""
+    echo "  -an, --use-apl-array-notation-output"
+    echo "    use Array Notation for output"
+    echo "    for details see:"
+    echo "    https://docs.dyalog.com/20.0/programming-reference-guide/introduction/arrays/array-notation/"
+    echo ""
     echo "Examples:"
     echo ""
     echo "  see https://github.com/justin2004/apl_in_the_shell"
@@ -73,6 +79,8 @@ while :; do
             # TODO if not col_names ≡ col_names_raw then print a warning? 
             csv_headers_script+="{⍎¨,/¯1⌽'←',1⌽({⍵},⍕∘⍪∘⍳∘≢)⍵} col_names ⋄"
             csv_headers_script+="firstargument ← 1↓firstargument ⋄"
+        ;;
+        -an|--use-apl-array-notation-output) PREAMBLE+="⎕SE.UCMD '←APLAN.Output ON'"
         ;;
         *) break
     esac
@@ -164,6 +172,7 @@ if [ ! -z $DEBUG ]
 then
     echo DEBUG: APL script is: >&2
     cat /tmp/ais.apl
+    echo
 fi
 
 chmod 777 /tmp/ais.apl
