@@ -1,8 +1,7 @@
 # vim: filetype=dockerfile
-# FROM debian:11
-FROM ubuntu:22.04
+FROM ubuntu:26.04
 USER root
-RUN apt-get update && apt-get install -y curl libtinfo5
+RUN apt-get update && apt-get install -y curl terminfo
 ARG uid=1000
 ARG gid=1000
 ARG user=containeruser
@@ -20,15 +19,11 @@ ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
 
 WORKDIR /home/containeruser
-RUN curl -O https://www.dyalog.com/uploads/php/download.dyalog.com/download.php?file=19.0/linux_64_19.0.50027_unicode.x86_64.deb
-# RUN curl -O https://www.dyalog.com/uploads/php/download.dyalog.com/download.php?file=18.2/linux_64_18.2.50027_unicode.x86_64.deb
-# RUN dpkg -i linux_64_18.2.50027_unicode.x86_64.deb
-RUN dpkg -i linux_64_19.0.50027_unicode.x86_64.deb
+RUN curl -O https://www.dyalog.com/uploads/php/download.dyalog.com/download.php?file=20.0/linux_64_20.0.53963_unicode.x86_64.deb
+RUN dpkg -i download.php
 USER $user
 ADD apl.sh /home/containeruser
 USER root
-# NOTE patch dyalogscript (will be fixed in 19.x)
-RUN sed -i -e 's/-f/-r/' /usr/bin/dyalogscript
 RUN chmod 555 /home/containeruser/apl.sh
 USER $user
 

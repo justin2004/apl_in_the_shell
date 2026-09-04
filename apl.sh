@@ -5,7 +5,11 @@ CSVOUTPUT=""
 FINAL_OUTPUT="⎕←"
 INPUT="SET"
 # this imports a function that can render function trains as ASCII trees
-PREAMBLE="'dft' ⎕cy 'dfns'"
+PREAMBLE="'dft' ⎕cy 'dfns'⋄"
+# but this causes train trees to be rendered if a function is evaluated 
+#   TODO still not quite right in dyalog 20.0
+# PREAMBLE+="⎕SE.UCMD '←Box on -trains=tree'"
+# PREAMBLE+="(⎕NS⍬).(_←enableSALT⊣⎕CY'salt')\n]Box on -trains=tree\n"
 
 print_usage() {
     echo "Usage: apl [OPTION] {FUNCTION} [input file ⍵]"
@@ -34,6 +38,12 @@ print_usage() {
     echo "    make the column names of the CSV file available as variables"
     echo "    which evaluate to the position of the column and which can be"
     echo "    used to index into the array (by column name)"
+    echo ""
+    echo ""
+    echo "  -an, --use-apl-array-notation-output"
+    echo "    use Array Notation for output"
+    echo "    for details see:"
+    echo "    https://docs.dyalog.com/20.0/programming-reference-guide/introduction/arrays/array-notation/"
     echo ""
     echo "Examples:"
     echo ""
@@ -69,6 +79,8 @@ while :; do
             # TODO if not col_names ≡ col_names_raw then print a warning? 
             csv_headers_script+="{⍎¨,/¯1⌽'←',1⌽({⍵},⍕∘⍪∘⍳∘≢)⍵} col_names ⋄"
             csv_headers_script+="firstargument ← 1↓firstargument ⋄"
+        ;;
+        -an|--use-apl-array-notation-output) PREAMBLE+="⎕SE.UCMD '←APLAN.Output ON'"
         ;;
         *) break
     esac
@@ -145,11 +157,6 @@ else
     fi
 fi
 
-if [ ! -z $DEBUG ]
-then
-    echo DEBUG: APL script is: >&2
-    echo DEBUG: $script >&2
-fi
 
 # NOTE we are creating a shebang file to workaround the dyalogscript bug that requires 
 # the script to be a file
@@ -160,5 +167,13 @@ then
     echo -e $PREAMBLE  >> /tmp/ais.apl
 fi
 echo $script  >> /tmp/ais.apl
+
+if [ ! -z $DEBUG ]
+then
+    echo DEBUG: APL script is: >&2
+    cat /tmp/ais.apl
+    echo
+fi
+
 chmod 777 /tmp/ais.apl
 /tmp/ais.apl
