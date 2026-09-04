@@ -5,7 +5,11 @@ CSVOUTPUT=""
 FINAL_OUTPUT="⎕←"
 INPUT="SET"
 # this imports a function that can render function trains as ASCII trees
-PREAMBLE="'dft' ⎕cy 'dfns'"
+PREAMBLE="'dft' ⎕cy 'dfns'⋄"
+# but this causes train trees to be rendered if a function is evaluated 
+#   TODO still not quite right in dyalog 20.0
+# PREAMBLE+="⎕SE.UCMD '←Box on -trains=tree'"
+# PREAMBLE+="(⎕NS⍬).(_←enableSALT⊣⎕CY'salt')\n]Box on -trains=tree\n"
 
 print_usage() {
     echo "Usage: apl [OPTION] {FUNCTION} [input file ⍵]"
@@ -145,11 +149,6 @@ else
     fi
 fi
 
-if [ ! -z $DEBUG ]
-then
-    echo DEBUG: APL script is: >&2
-    echo DEBUG: $script >&2
-fi
 
 # NOTE we are creating a shebang file to workaround the dyalogscript bug that requires 
 # the script to be a file
@@ -160,5 +159,12 @@ then
     echo -e $PREAMBLE  >> /tmp/ais.apl
 fi
 echo $script  >> /tmp/ais.apl
+
+if [ ! -z $DEBUG ]
+then
+    echo DEBUG: APL script is: >&2
+    cat /tmp/ais.apl
+fi
+
 chmod 777 /tmp/ais.apl
 /tmp/ais.apl
