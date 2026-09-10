@@ -469,6 +469,65 @@ apl -an -ni "⍪(1 2 3) 'hello'"
 
 This is [new](https://docs.dyalog.com/20.0/programming-reference-guide/introduction/arrays/array-notation/) in Dyalog APL 20.0.
 
+### Filtering/Transforming Text with Minimal Diff
+
+Dyalog APL has [conventions for printing](https://dyalog.github.io/documentation/20.0/programming-reference-guide/introduction/arrays/display-of-arrays/) which may cause more textual differences than you want when reading from stdin and outputing to stdout.
+Often we just want to read in rows/lines of text, treat each line as a record and manipulate or assess them.
+
+Using the identity function (`⊢`) we can see stdin and files are read in as rank 1 vectors with nested scalars for each line of input. 
+
+```bash
+$ echo -e '1 2\n3 4 5\n6 7' | apl -r display '⊢'
+┌→────────────────────┐
+│ ┌→──┐ ┌→────┐ ┌→──┐ │
+│ │1 2│ │3 4 5│ │6 7│ │
+│ └───┘ └─────┘ └───┘ │
+└∊────────────────────┘ 
+```
+
+If you want to operate structurally on the whole input then it can be useful to first table (`⍪`) the input to get a rank 2 array (1 column and N rows (one for each line of input)).
+
+```bash
+$ echo -e '1 2\n3 4 5\n6 7' | apl -r display '⍪'
+┌→────────┐
+↓ ┌→──┐   │
+│ │1 2│   │
+│ └───┘   │
+│ ┌→────┐ │
+│ │3 4 5│ │
+│ └─────┘ │
+│ ┌→──┐   │
+│ │6 7│   │
+│ └───┘   │
+└∊────────┘
+```
+
+But notice how the standard Dyalog APL printing of that doesn't quite textually match the input.
+
+```bash
+vimdiff <(echo -e '1 2\n3 4 5\n6 7')  <(echo -e '1 2\n3 4 5\n6 7' | apl '⍪')
+```
+
+![diff](media/diff_without_printeach.png)
+
+On the left is the output of echo and on the right is the output of echo filtered through `apl` with differences highlighted.
+Notice how default Dyalog APL printing adds a leading space and adds trailing space.
+
+For an textually matching output, often the custom `printeach` function will do what you expect.
+
+```bash
+$ diff <(echo -e '1 2\n3 4 5\n6 7')  <(echo -e '1 2\n3 4 5\n6 7' | apl -r printeach '⍪') ; echo $?
+0
+```
+
+For example, flipping lines of text:
+
+```bash
+$ echo -e '1 2\n3 4 5\n6 7' | apl -r printeach '⊖⍪'
+6 7
+3 4 5
+1 2
+```
 
 ## entering APL glyphs
 

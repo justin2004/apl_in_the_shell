@@ -62,6 +62,11 @@ while :; do
         ;;
         -r|--render) 
             RENDER="$2"            
+            if [ "$RENDER" = "printeach" ]
+            then
+                FINAL_OUTPUT=""
+                script+="to_signed←{u←'UTF-8'⎕UCS ⍵ ⋄ m←128<u ⋄ (u×~m)+m\¯256∘+m/u } ⋄ out←'/dev/stdout' ⎕NTIE ¯3 1 ⋄ printone←{_←((to_signed ⍕⍵),10) ⎕NAPPEND out 83 } ⋄ printeach←{printone¨⍵ ⋄ ⎕NUNTIE out } ⋄"
+            fi
             script+="'displayr' 'displays' 'display' 'disp'⎕CY'dfns' ⋄"
             shift
         ;;
@@ -101,6 +106,7 @@ fi
 
 if [ ! -z "$first" ]
 then
+    # we have an argument after the user_function
     if [ "-" = "$first" ]
     then
         first="/dev/stdin"
@@ -129,6 +135,7 @@ then
         script+="$FINAL_OUTPUT $RENDER $CSVOUTPUT_EXPRESSION ($user_function) firstargument"
     fi
 else
+    # we don't have an argument after the user_function
     first="/dev/stdin"
     if [ ! -z $CSVINPUT ]
     then
